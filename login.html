@@ -4,7 +4,7 @@
 
 <head>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <title>My Page</title>
+    <title>Swarthmore MarketPlace Login</title>
 </head>
 
 <!--Navigation bar-->
@@ -13,9 +13,9 @@
 </div>
 
 <script>
-$(function(){
-  $("#nav-placeholder").load("navbar.html");
-});
+    $(function () {
+        $("#nav-placeholder").load("navbar.html");
+    });
 </script>
 <!--end of Navigation bar-->
 
@@ -26,15 +26,17 @@ $(function(){
 
         <!-- Description -->
         <div>
-
-            <input type="text" placeholder="Enter your email address">
-            <br>
-            <input type="text" placeholder="Enter your password">
-            <br>
+            <form id="loginForm" method="post">
+                <label for="email">Swarthmore Email:</label>
+                <input type="email" id="email" name="email" placeholder="Email"><br>
+                <label for="pwd">Password:</label>
+                <input type="password" id="pwd" name="pwd" placeholder="Password">
+                <br>
+            </form>
             <button type="button">Login</button>
             <br>
-            <a href="register.html">Register Here</a>
-            <!---->
+            <p>Don't have an account? <a href="register.html">Register Here</a></p>
+            <!--How do i get it so that Register here stays the same color after mutiple presses?-->
             <!--Forgot password page href goes here-->
         </div>
     </center>
