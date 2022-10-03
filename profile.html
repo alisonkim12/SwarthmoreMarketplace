@@ -1,5 +1,6 @@
 <html>
   <head>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <title>Piplup</title>
     <style>
       body {
@@ -50,6 +51,17 @@
       }
     </style>
   </head>
+  <!--Navigation bar-->
+  <div id="nav-placeholder">
+
+  </div>
+
+  <script>
+      $(function () {
+          $("#nav-placeholder").load("navbar.html");
+      });
+  </script>
+  <!--end of Navigation bar-->
   <body>
     <!-- Main Heading -->
     <div id="primary-container">
@@ -106,7 +118,7 @@
   </head>
   <!--Navigation bar-->
   <div id="nav-placeholder">
-    
+
   </div>
 
   <script>
