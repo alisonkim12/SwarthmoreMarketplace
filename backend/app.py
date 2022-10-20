@@ -19,12 +19,22 @@ auth = firebase.auth()
 
 app.secret_key = 'secret'
 
-@app.route("/")
-def get_main_page():
-    return render_template('main.html')
+@app.route('/', methods = ['POST', 'GET'])
+def index(): 
+    if ('user' in session):
+        return 'Hi, {}'.format(session['user'])
+    if request.method == 'POST': #if form submitted
+        email = request.form.get('email')
+        password = request.form.get('password')
+        try: #login
+            user = auth.sign_in_with_email_and_password(email, password)
+            session['user'] = email #assign user variable to email
+        except: #login does not go through
+            return 'Failed to Login'
+    return render_template('home.html')
 
-@app.route('/api/logout')
-def bye():
+@app.route('/logout')
+def logout():
     session.pop('user')
     return redirect('/')
 
