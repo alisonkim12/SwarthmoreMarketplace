@@ -14,17 +14,18 @@
             }
 
             li {
-                float: left;
+                float: right;
                 border-right: 1px solid #bbb;
             }
             li:first-child{
+                float: left;
                 border-right: none;
             }
 
             li a {
                 display: block;
                 color: white;
-                padding: 14px 16px;
+                padding: 50px 50px;
                 text-align: center;
                 text-decoration: none;
             }
@@ -47,9 +48,11 @@
     -->
     <ul>
         <li><a class="active" href="main.html"> Logo</a></li>
-        <li><a href="postItem.html">Create Post</a></li>
-        <li><a href="profile.html">My Account</a></li>
+        <!--first child is above-->
         <li><a>Hello *name here*</a></li>
+        <li><a href="profile.html">My Account</a></li>
+        <li><a href="postItem.html">Create Post</a></li>
+        <li><a href="main.html">Main Feed</a></li>
     </ul>
 </body>
 
