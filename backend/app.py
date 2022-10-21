@@ -1,5 +1,6 @@
 from flask import Flask, session, render_template, request, redirect
 import pyrebase
+import create_user_with_email_and_password
 
 app = Flask(__name__)
 
@@ -32,6 +33,10 @@ def index():
         except: #login does not go through
             return 'Failed to Login'
     return render_template('home.html')
+
+@app.route('/register')
+def register():
+    return render_template('registerflask.html')
 
 @app.route('/logout')
 def logout():
