@@ -30,9 +30,11 @@ def index():
         try: #login
             user = auth.sign_in_with_email_and_password(email, password)
             session['user'] = email #assign user variable to email
+            print('made it here')
+            return 'Hi, {}'.format(session['user'])
         except: #login does not go through
             return 'Failed to Login'
-    return render_template('home.html')
+    return render_template('login.html')
 
 @app.route('/register')
 def register():
@@ -41,7 +43,7 @@ def register():
 @app.route('/logout')
 def logout():
     session.pop('user')
-    return redirect('/')
+    return redirect('/login')
 
 if __name__ == '__main__':
     app.run() # run locally
