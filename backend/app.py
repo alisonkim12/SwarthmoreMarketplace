@@ -1,6 +1,5 @@
 from flask import Flask, session, render_template, request, redirect
 import pyrebase
-import create_user_with_email_and_password
 
 app = Flask(__name__)
 
@@ -20,8 +19,8 @@ auth = firebase.auth()
 
 app.secret_key = 'secret'
 
-@app.route('/', methods = ['POST', 'GET'])
-def index(): 
+@app.route('/login', methods = ['POST', 'GET'])
+def login(): 
     if ('user' in session):
         return 'Hi, {}'.format(session['user'])
     if request.method == 'POST': #if form submitted
@@ -30,20 +29,31 @@ def index():
         try: #login
             user = auth.sign_in_with_email_and_password(email, password)
             session['user'] = email #assign user variable to email
-            print('made it here')
             return 'Hi, {}'.format(session['user'])
         except: #login does not go through
             return 'Failed to Login'
     return render_template('login.html')
 
-@app.route('/register')
+@app.route('/register', methods = ['GET', 'POST'])
 def register():
-    return render_template('registerflask.html')
+    email = request.form.get('email')
+    password = request.form.get('password')
+    if request.method == 'POST': #if form submitted
+        try: #register
+            user = auth.create_user_with_email_and_password(email, password)
+            return f'Successfully registered account with {email}'
+        except:
+            return 'Failed to Register'
+    return render_template('register.html')
 
 @app.route('/logout')
 def logout():
     session.pop('user')
     return redirect('/login')
+
+@app.route('/navbar')
+def navbar():
+    return render_template('navbar.html')
 
 if __name__ == '__main__':
     app.run() # run locally
