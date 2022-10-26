@@ -19,6 +19,10 @@ auth = firebase.auth()
 
 app.secret_key = 'secret'
 
+@app.route("/")
+def get_main_page():
+    return render_template('main.html')
+
 @app.route('/login', methods = ['POST', 'GET'])
 def login(): 
     if ('user' in session):
@@ -54,6 +58,18 @@ def logout():
 @app.route('/navbar')
 def navbar():
     return render_template('navbar.html')
+
+#extra methods
+
+#user = auth.create_user_with_email_and_password(email, password)
+#print(user)
+
+#user = auth.sign_in_with_email_and_password(email, password)
+
+#info = aut.get_account_info(user['idToken'])
+#print(info)
+#auth.send_email_verification(user['idToken'])
+#auth.send_password_reset_email(email)
 
 if __name__ == '__main__':
     app.run() # run locally
