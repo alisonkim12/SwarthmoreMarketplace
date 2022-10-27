@@ -21,7 +21,23 @@ nav {
   background-color: teal;
 
 }
+.heading {
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-size: 20px;
+}
 
+.ul {
+  list-style-type: none;
+  position: fixed; /*This causes the items of the navbar to clump up for some reason, I had to do .ul instead of ul*/
+  top: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
 .nav-links {
   display: flex;
   justify-content: space-around;
@@ -30,47 +46,26 @@ nav {
 
 .nav-links li {
   list-style: none;
-}
-
-.nav-links a{
-  color: white;
-  text-decoration: none;
-  letter-spacing: 3px;
-  font-weight: bold;
-  font-size: 14px;
-  padding: 14px 16px;
-}
-
-ul {
-  list-style-type: none;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333;
-}
-
-li {
   float: right;
   border-right: 1px solid #bbb;
 }
-li:first-child{
-  float: left;
-  border-right: none;
+
+.nav-links a{
+  display: block; /*This makes items be block */
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  letter-spacing: 3px;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 14px 16px; /* From the page I used to create, maybe change later */
 }
 
-li a {
-  display: block;
-  color: white;
-  padding: 50px 50px;
-  text-align: center;
-  text-decoration: none;
+.nav-links a:hover:not(.active) {
+  background-color: lightseagreen;
 }
-li a:hover:not(.active) {
-  background-color: #111;
+
+.nav-links li a.active {
+  background-color: #4caf50;
 }
-.active {
-  background-color: #04AA6D;
-}
+

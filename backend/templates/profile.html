@@ -2,8 +2,8 @@
 <html lang="en-US"></html>
 <html>
   <head>
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <title>Piplup</title>
+    <link rel="stylesheet" href="/backend/static/styles.css">    
+    <title>Your Profile</title>
     <style>
       body {
         background-color: #fcfcfc;
@@ -30,45 +30,27 @@
         border-radius: 5px;
         background-color: #e1e1e1;
       }
-      #navbar {
-        margin-top: 1px;
-        border: 2px solid #777799;
-        border-top: 1px solid #777799;
-        border-radius: 4px;
-        padding: 15px;
-        background-color: #eeee77;
-      }
-      .navitem {
-        font-size: 20px;
-        color: blue;
-        padding: 5px;
-      }
-      .navitem:hover {
-        background-color: #aaaaaa;
-      }
-      #main-heading {
-        font-size: 30px;
-        font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-        color: #000000;
-      }
       p {
         display:inline-block;
       }
     </style>
   </head>
   <!--Navigation bar-->
-  <div id="nav-placeholder">
-
-  </div>
-
-  <script>
-      $(function () {
-          $("#nav-placeholder").load("navbar.html");
-      });
-  </script>
-  <!--end of Navigation bar-->
   <body>
-<body>
+    <nav>
+        <div class="heading">
+            <h4><a style="text-decoration: none;color: white;" href="main.html"> Swarthmore MarketPlace</a></h4>
+            <!--Later this might be an image idk-->
+        </div>
+        <ul class="nav-links">
+          <li><a href="main.html">Main Feed</a></li>
+          <li><a href="postItem.html">Create Post</a></li>
+          <li><a href="profile.html">My Account</a></li>
+          <li><a>Hello *name here*</a></li>
+        </ul>
+    </nav>
+  <!--end of Navigation bar-->
+    
     <!-- Main Heading -->
     <div id="primary-container">
       <h1 id="main-heading">My Profile</h1> <!--this has to be updated by user input-->
