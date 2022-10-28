@@ -50,6 +50,11 @@ nav {
   border-right: 1px solid #bbb;
 }
 
+.nav-links li:last-child {
+  float: right;
+  border-right: none;
+}
+
 .nav-links a{
   display: block; /*This makes items be block */
   color: white;
