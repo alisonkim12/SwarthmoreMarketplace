@@ -15,7 +15,7 @@
 
 nav {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   min-height: 8vh;
   background-color: teal;
@@ -41,7 +41,8 @@ nav {
 .nav-links {
   display: flex;
   justify-content: space-around;
-  width: 30%;
+  width: 30%; /*This is making the last item not hug the end of the page from testing it seems*/
+  /* Seems like it affects the width, a bigger # causes it to seem smaller */
 }
 
 .nav-links li {
@@ -51,7 +52,6 @@ nav {
 }
 
 .nav-links li:last-child {
-  float: right;
   border-right: none;
 }
 
