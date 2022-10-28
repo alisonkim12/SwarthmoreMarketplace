@@ -57,7 +57,7 @@ nav {
   border-right: none;
 }
 
-.nav-links a{
+.nav-links a, .dropbtn{
   display: block; /*This makes items be block */
   color: white;
   text-decoration: none;
@@ -68,11 +68,39 @@ nav {
   padding: 14px 16px; /* From the page I used to create, maybe change later */
 }
 
-.nav-links a:hover:not(.active) {
+.nav-links a:hover:not(.active), .dropdown:hover .dropbtn {
   background-color: lightseagreen;
 }
 
 .nav-links li a.active {
   background-color: #4caf50;
 }
+
+.nav-links li.dropdown {
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: burlywood;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1;}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
 
