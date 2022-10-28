@@ -13,14 +13,6 @@
   margin-top: 250px;
 }
 
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 8vh;
-  background-color: teal;
-
-}
 .heading {
   color: white;
   text-transform: uppercase;
@@ -38,10 +30,20 @@ nav {
   overflow: hidden;
   background-color: #333;
 }
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 8vh;
+  background-color: teal;
+
+}
 .nav-links {
+  overflow: auto;
   display: flex;
   justify-content: space-around;
-  width: 30%; /*This is making the last item not hug the end of the page from testing it seems*/
+  width: 50%; /*This is making the last item not hug the end of the page from testing it seems*/
   /* Seems like it affects the width, a bigger # causes it to seem smaller */
 }
 
