@@ -36,7 +36,7 @@ nav {
   justify-content: space-between;
   align-items: center;
   min-height: 8vh;
-  background-color: #9a2a2a;/*nav color*/
+  background-color:  #77DD77;/*nav color*/
 
 }
 .nav-links {
@@ -59,7 +59,7 @@ nav {
 
 .nav-links a, .dropbtn{
   display: block; /*This makes items be block */
-  color: white;
+  color: black;
   text-decoration: none;
   text-align: center;
   letter-spacing: 3px;
@@ -104,3 +104,79 @@ nav {
 }
 
 
+/*Login and Register styling*/
+.log-reg-container {
+  border-radius: 5px;
+  background-color: aquamarine;
+  padding: 20px;
+  border: 8px solid black;
+  position: absolute;
+  left: 50%;
+  margin-left: -225px;
+  width: 500px;
+  height: 600px;
+}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+input[type=password], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+input[type=submit] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+input[type=submit] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
