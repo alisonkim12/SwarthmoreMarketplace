@@ -4,22 +4,12 @@
 
 <head>
     <title>Swarthmore MarketPlace Register Page</title>
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="js/main.js"></script>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/backend/static/styles.css">
 </head>
 
 <!--Navigation bar-->
-<div id="nav-placeholder">
-
-</div>
-
-<script>
-    $(function () {
-        $("#nav-placeholder").load("navbar.html");
-    });
-</script>
 <!--end of Navigation bar-->
+<!--Add the name of the site at the top center or something-->
 
 <body>
     <center>
@@ -76,9 +66,12 @@
                 </div>
                 
             </form>
+            <!--This is not showing on the page, unless we move it within the last div for some reason-->
+            <div class="btologin">
+                <p>Already have an account?<a href="#">Sign in</a>.</p>
+            </div>
         </div>
         
-        <script src="js/app.js"></script>
     </center>
     
 </body>
