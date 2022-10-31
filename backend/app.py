@@ -1,4 +1,6 @@
 from flask import Flask, session, render_template, request, redirect
+from werkzeug.urls import url_parse
+
 import pyrebase
 
 app = Flask(__name__)
@@ -19,7 +21,13 @@ auth = firebase.auth()
 
 app.secret_key = 'secret'
 
-@app.route("/")
+#login = LoginManager(app)
+login.login_view = 'login'
+
+
+@app.route('/')
+@app.route('/main')
+@login_required
 def get_main_page():
     return render_template('main.html')
 
@@ -27,6 +35,18 @@ def get_main_page():
 def login(): 
     if ('user' in session):
         return 'Hi, {}'.format(session['user'])
+
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid username or password')
+            return redirect(url_for('login'))
+        login_user(user, remember=form.remember_me.data)
+        next_page = request.args.get('next')
+        if not next_page or url_parse(next_page).netloc != '':
+            next_page = url_for('main')
+        return redirect(next_page )
+
     if request.method == 'POST': #if form submitted
         email = request.form.get('email')
         password = request.form.get('password')
