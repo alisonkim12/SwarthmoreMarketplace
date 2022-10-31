@@ -1,7 +1,6 @@
-from flask import Flask, session, render_template, request, redirect
-from werkzeug.urls import url_parse
-
+from flask import Flask, session, render_template, request, redirect, send_from_directory
 import pyrebase
+import requests
 
 app = Flask(__name__)
 
@@ -21,13 +20,16 @@ auth = firebase.auth()
 
 app.secret_key = 'secret'
 
-#login = LoginManager(app)
-login.login_view = 'login'
+@app.before_request
+def before_request():
+    if 'user' in session:
+        return None
+    if request.path == '/login':
+        return
+    else:
+        return redirect('/login')
 
-
-@app.route('/')
-@app.route('/main')
-@login_required
+@app.route("/")
 def get_main_page():
     return render_template('main.html')
 
@@ -53,6 +55,8 @@ def login():
         try: #login
             user = auth.sign_in_with_email_and_password(email, password)
             session['user'] = email #assign user variable to session
+            print('log in', session)
+            return redirect('/')
             #return f'Hi, {email}'
         except Exception as e: #login does not go through  
             #print(e)
@@ -81,6 +85,14 @@ def logout():
 def navbar():
     return render_template('navbar.html')
 
+@app.route('/profile')
+def profile():
+    return render_template('profile.html')
+
+@app.route('/post')
+def post():
+    return render_template('postItem.html')
+
 @app.route('/api/user')
 def get_user_info():
     if ('user' in session):
@@ -90,7 +102,11 @@ def get_user_info():
         return user_info
         #once we have info in database, use user info to find entry in database and return that row
     else:
-        return 'No user logged in'
+        return None
+
+@app.route('/public/stylesheets/styles.css')
+def get_styling():
+    return send_from_directory('static', 'styles.css')
 
 #extra methods
 

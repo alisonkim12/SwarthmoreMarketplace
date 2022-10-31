@@ -3,27 +3,52 @@
 <html lang="en-US">
 
 <head>
-    <link rel="stylesheet" href="/backend/static/styles.css">
+    <link rel="stylesheet" href="/public/stylesheets/styles.css">
     <title>Swarthmore MarketPlace Login</title>
+    <link rel="stylesheet" href="/backend/static/styles.css">
 </head>
 
 <body>
     <center>
         <!-- Heading -->
-        <h1>Login Page</h1>
+        <div class="log-reg-container">
+            <form action='/login' method='POST' id="loginForm">
+                <h1>Login Page</h1>
+                
+                <div class="row">
+
+                    <div class="col-25">
+                        <label for="email">Swarthmore Email:</label>
+                    </div>
+
+                    <div class="col-75">
+                        <input type="email" id="email" name="email" placeholder="Email"><br>
+                        <small></small>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-25">
+                        <label for="pwd">Password:</label>
+                    </div>
+
+                    <div class="col-75">
+                        <input type="password" id="pwd" name="password" placeholder="Password">
+                    </div>
+                    
+                </div>
+
+            </div>
 
         <!-- Description -->
         <div>
-            <form action='/login' method='POST' id="loginForm">
-                <label for="email">Swarthmore Email:</label>
-                <input type="email" id="email" name="email" placeholder="Email"><br>
-                <label for="pwd">Password:</label>
-                <input type="password" id="pwd" name="password" placeholder="Password">
                 <br>
                 <input type='submit'>
             </form>
             <br>
-            <p>Don't have an account? <a href="register.html">Register Here</a></p>
+            <p>Don't have an account? <a href="/register">Register Here</a></p>
             <!--How do i get it so that Register here stays the same color after mutiple presses?-->
             <!--Forgot password page href goes here-->
         </div>
