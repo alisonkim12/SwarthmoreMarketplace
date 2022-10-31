@@ -1,5 +1,4 @@
-import requests
-from flask import Flask, session, render_template, request, redirect
+from flask import Flask, session, render_template, request, redirect, send_from_directory
 import pyrebase
 
 app = Flask(__name__)
@@ -62,6 +61,14 @@ def logout():
 def navbar():
     return render_template('navbar.html')
 
+@app.route('/profile')
+def profile():
+    return render_template('profile.html')
+
+@app.route('/post')
+def post():
+    return render_template('postItem.html')
+
 @app.route('/api/user')
 def get_user_info():
     if ('user' in session):
@@ -72,6 +79,10 @@ def get_user_info():
         #once we have info in database, use user info to find entry in database and return that row
     else:
         return 'No user logged in'
+
+@app.route('/public/stylesheets/styles.css')
+def get_styling():
+    return send_from_directory('static', 'styles.css')
 
 #extra methods
 
