@@ -1,4 +1,3 @@
-import requests
 from flask import Flask, session, render_template, request, redirect
 import pyrebase
 
@@ -27,16 +26,16 @@ def get_main_page():
 @app.route('/login', methods = ['POST', 'GET'])
 def login(): 
     if ('user' in session):
-        return f"Hi, {session['user']['email']}"
+        return 'Hi, {}'.format(session['user'])
     if request.method == 'POST': #if form submitted
         email = request.form.get('email')
         password = request.form.get('password')
         try: #login
             user = auth.sign_in_with_email_and_password(email, password)
-            session['user'] = user #assign user variable to session
-            return f'Hi, {email}'
+            session['user'] = email #assign user variable to session
+            #return f'Hi, {email}'
         except Exception as e: #login does not go through  
-            print(e)
+            #print(e)
             return 'Failed to Login'
     return render_template('login.html')
 
@@ -47,7 +46,7 @@ def register():
     if request.method == 'POST': #if form submitted
         try: #register
             user = auth.create_user_with_email_and_password(email, password)
-            return f'Successfully registered account with {email}'
+            return 'Successfully registered account with {email}'
         except Exception as e:
             print(e)
             return 'Register failed'
