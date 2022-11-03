@@ -12,11 +12,12 @@ config = {
   'messagingSenderId': "410170758850",
   'appId': "1:410170758850:web:efc1a435d0d065d26d4d5b",
   'measurementId': "G-1YP7TGS9CT",
-  'databaseURL': ''
+  'databaseURL': "https://swarthmoremarketplace-default-rtdb.firebaseio.com"
 }
 
 firebase = pyrebase.initialize_app(config)
 auth = firebase.auth()
+db = firebase.database()
 
 app.secret_key = 'secret'
 
@@ -59,10 +60,19 @@ def login():
 def register():
     email = request.form.get('email')
     password = request.form.get('password')
+    first_name = request.form.get('fname')
+    last_name = request.form.get('lname')
     if request.method == 'POST': #if form submitted
         try: #register
             user = auth.create_user_with_email_and_password(email, password)
-            return 'Successfully registered account with {email}'
+            user_data = {
+                "firstname": first_name,
+                "lastname": last_name,
+                "email": email
+            }
+            db.child("users").push(user_data, user['idToken'])
+            print(user)
+            return f'Successfully registered account with {email}'
         except Exception as e:
             print(e)
             return 'Register failed'
