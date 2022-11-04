@@ -14,7 +14,7 @@
 }
 
 .heading {
-  color: white;
+  color: black;
   text-transform: uppercase;
   letter-spacing: 5px;
   font-size: 20px;
@@ -183,7 +183,7 @@ input[type=submit] {
   margin-top: 6px;
 }
 
-.btologin {
+.bktolog-reg {
   text-align: center;
   background-color: #f1f1f1;
 }
@@ -196,6 +196,16 @@ p{
 
 a {
   color: dodgerblue;
+}
+
+/*Button for login and register*/
+.cnfrmbtn {
+  background-color: #9A2A2A;
+  color: white;
+  padding: 14px 28px;
+  font-size: 14px;
+  border: 2px solid black;
+  cursor: pointer;
 }
 
 /* Clear floats after the columns */
