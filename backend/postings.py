@@ -26,7 +26,7 @@ db = firebase.database()
 #print(user_info) 
 
 
-app.route('/postItem', methods = ['GET', 'POST'])
+@app.route('/postItem', methods = ['GET', 'POST'])
 def postItem():
     item_name = request.form.get('item_name')
     item_price = request.form.get('item_price')
