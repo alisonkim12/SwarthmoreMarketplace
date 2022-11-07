@@ -185,13 +185,7 @@ input[type=submit] {
 
 .bktolog-reg {
   text-align: center;
-  background-color: #f1f1f1;
-}
-
-p{
-  font-style: italic;
-  color: black;
-  font-weight: 300;
+  margin-top: 25px;
 }
 
 a {
