@@ -19,8 +19,11 @@ db = firebase.database()
 """ posting information: first name, last name, email, Item name, Price, Item condition, Item description, photo (id) jpeg/png file"""
 
 """ way to get user info (firstname, lastname, email) based on who is logged in"""
-user_info = get_users_info()
-print(user_info) 
+
+#@app.route('/api/user')
+
+#user_info = get_users_info()
+#print(user_info) 
 
 
 app.route('/postItem', methods = ['GET', 'POST'])
@@ -35,8 +38,8 @@ def postItem():
             #user = auth.create_user_with_email_and_password(email, password)
             posting_data = {
                 "item_name": item_name,
-                "item_price": item_price,
-                "item_condition": item_condition
+                "item_price": item_price, 
+                "item_condition": item_condition,
                 "item_description": item_description
                 #item_photo: item_photo? 
             }
