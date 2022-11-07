@@ -40,31 +40,71 @@
         </div>
 
         <div class="col-75">
-          <input type="text"
-
+          <input type="text" id="item_name" name="item_name" placeholder="The name of your item"/>
+          <small></small>
         </div>
+        
       </div>
-    </form>
-    <h3>Name of Item</h3>
-    <input type="text" id = "item_name" placeholder="Item Name">
-    <br>
-    <h3>Price</h3>
-    <input type="text" id = "item_price" placeholder="Price">
-    <h3>Condition</h3>
-    <input type="text" id = "item_condition" placeholder="Item Condition">
-    <h3>Description</h3>
-    <input type="text" id = "item_description" placeholder="Item Description">
-    
-    <label for="photo"><h3>Choose a photo to upload</h3></label>
-    <span>
-      <input type="file" id="item_photo" name="photo" accept="image/png, image/jpeg">
-    </span>
-    <div class="row">
-      <button class="cnfrmbtn" onclick="sendRequest()">Submit</button>
-      <!--button type="submit" class="full">Register</button-->
-    </div>
 
-    
+      <div class="row">
+
+        <div class="col-25">
+          <label for="item_price">Item Price:</label>
+        </div>
+
+        <div class="col-75">
+          <input type="text" id="item_price" name="item_price" placeholder="Price of item"/>
+          <small></small>
+        </div>
+
+      </div>
+
+      <div class="row">
+        
+        <div class="col-25">
+          <label for="item_condition">Conditon of item:</label> <!--should this be a select?-->
+        </div>
+
+        <div class="col-75">
+          <input type="text" id="item_condition" name="item_condition" placeholder="Condition of item"/>
+          <small></small>
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-25">
+          <label for="item_description">Item Description:</label>
+        </div>
+
+        <div class="col-75">
+          <input type="text" id="item_description" name="item_description" placeholder="Description"/>
+          <small></small>
+        </div>
+
+      </div>
+      
+      <div class="row">
+        
+        <div class="col-25">
+          <label for="photo"><h3>Choose a photo to upload</h3></label>
+        </div>
+
+        <div class="col-75">
+          <span>
+            <input type="file" id="item_photo" name="photo" accept="image/png, image/jpeg">
+          </span>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <button class="cnfrmbtn" onclick="sendRequest()">Submit</button>
+        <!--button type="submit" class="full">Register</button-->
+      </div>
+
+    </form>
   </div>
 </body>
 
