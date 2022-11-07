@@ -97,7 +97,7 @@ def postItem():
     item_price = request.form.get('item_price')
     item_condition = request.form.get('item_condition')
     item_description = request.form.get('item_description')
-    imagefile = flask.request.files.get('item_photo', '')
+    #imagefile = flask.request.files.get('item_photo', '')
 
     #idk how photos uploaded from the frontend translates into the backend and how to store the data
     if request.method == 'POST': #if form submitted
