@@ -119,11 +119,17 @@ def postItem():
 @app.route('/api/user')
 def get_user_info():
     if ('user' in session):
-        user = session['user']
-        print(user)
-        user_info = auth.get_account_info(user['idToken'])
-        return user_info
-        #once we have info in database, use user info to find entry in database and return that row
+        user_email = session['user']
+        try:
+            user_object = db.child("users").order_by_child("email").equal_to(user_email).get()
+            user_info = None
+            for user in user_object.each(): #figure out if there's an easier way to do this
+                user_info = user.val()
+            return user_info
+
+        except Exception as e:
+            print(e)
+            return 'Failed to get user info'
     else:
         return None
 
