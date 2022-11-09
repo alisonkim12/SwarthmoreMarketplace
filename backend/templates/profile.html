@@ -34,6 +34,10 @@
         display:inline-block;
       }
     </style>
+    <script src="/static/main.js"></script>
+    <script>
+        setUserName()
+    </script>
   </head>
   <!--Navigation bar-->
   <body>
@@ -47,7 +51,7 @@
           <li><a href="/postItem">Create Post</a></li>
           <li><a class="active" href="/profile">My Account</a></li>
           <li class="dropdown">
-            <a href="javascript:void(0)" class="dropbtn">Hello *name here*</a>
+            <a href="javascript:void(0)" class="dropbtn" id="hello">Hello!</a>
             <div class="dropdown-content">
               <a href="/logout">Log Out</a>
             </div>
