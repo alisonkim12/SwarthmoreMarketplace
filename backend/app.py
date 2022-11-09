@@ -41,7 +41,7 @@ def get_main_page():
 @app.route('/login', methods = ['POST', 'GET'])
 def login(): 
     if ('user' in session):
-        return 'Hi, {}'.format(session['user'])
+        return redirect('/')
     if request.method == 'POST': #if form submitted
         email = request.form.get('email')
         password = request.form.get('password')
