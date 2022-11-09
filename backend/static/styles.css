@@ -235,7 +235,4 @@ a {
 .container {
   padding: 2px 16px;
   border: 8px  black;
-  display: flex;
-  align-items: stretch;
-  justify-content: space-around;
 }
