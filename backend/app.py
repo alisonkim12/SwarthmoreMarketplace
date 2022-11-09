@@ -91,31 +91,6 @@ def navbar():
 def profile():
     return render_template('profile.html')
 
-@app.route('/postItem', methods = ['GET', 'POST'])
-def postItem():
-    item_name = request.form.get('item_name')
-    item_price = request.form.get('item_price')
-    item_condition = request.form.get('item_condition')
-    item_description = request.form.get('item_description')
-    #imagefile = flask.request.files.get('item_photo', '')
-
-    #idk how photos uploaded from the frontend translates into the backend and how to store the data
-    if request.method == 'POST': #if form submitted
-        try: #register
-            #user = auth.create_user_with_email_and_password(email, password)
-            posting_data = {
-                "item_name": item_name,
-                "item_price": item_price, 
-                "item_condition": item_condition,
-                "item_description": item_description
-                #item_photo: item_photo? 
-            }
-            db.child("postings").push(posting_data, user['idToken'])
-        except Exception as e:
-            print(e)
-            return 'Posting submission failed'
-    return render_template('postItem.html')
-
 @app.route('/api/user')
 def get_user_info():
     if ('user' in session):
@@ -132,6 +107,56 @@ def get_user_info():
             return 'Failed to get user info'
     else:
         return None
+
+
+
+@app.route('/postItem', methods = ['GET', 'POST'])
+def postItem():
+    item_name = request.form.get('item_name')
+    item_price = request.form.get('item_price')
+    item_condition = request.form.get('item_condition')
+    item_description = request.form.get('item_description')
+
+    #storing images to the backend
+    """
+    upload_path = current_path + '/images'
+    def upload_file():
+        if request.method == 'POST':
+            photo_file = request.files['item_photo"']
+            if photo_file.filename != '':
+                file_extension = photo_file.filename.split(".")[-1]
+                # must create or get a product_id
+                output_filepath = upload_path + '/templates/' + product_id + '.' + file_extension
+                photo_file.save(output_filepath) #saves file to uploaded file
+                return render_template("next.html")
+            else:
+                return 'failure'
+        else:
+            return render_template("current.html")
+
+    """
+
+    #idk how photos uploaded from the frontend translates into the backend and how to store the data
+    if request.method == 'POST': #if form submitted
+        try: #register
+            #user = auth.create_user_with_email_and_password(email, password)
+            posting_data = {
+                "firstname": user_info.get('firstname'),
+                "lastname": user_info.get('lastname'),
+                "email": user_info.get('email'),
+                "item_name": item_name,
+                "item_price": item_price, 
+                "item_condition": item_condition,
+                "item_description": item_description
+                #item_photo: item_photo? if it is inside the templates file we can access it that way instead of storing it in the firebase console 
+            }
+            db.child("postings").push(posting_data, user['idToken'])
+        except Exception as e:
+            print(e)
+            return 'Posting submission failed'
+    return render_template('postItem.html')
+
+
 
 @app.route('/public/stylesheets/styles.css')
 def get_styling():

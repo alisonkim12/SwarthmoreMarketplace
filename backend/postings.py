@@ -1,5 +1,5 @@
 import pyrebase
-from app import *
+from app import get_user_info
 
 config = {
   'apiKey': "AIzaSyBPwmDxLcv11-nhDhmwq1Jqt6Q2sQ9XccY",
@@ -20,11 +20,24 @@ db = firebase.database()
 
 """ way to get user info (firstname, lastname, email) based on who is logged in"""
 
-#@app.route('/api/user')
+@app.route('/api/user')
+def get_user_info():
+    if ('user' in session):
+        user_email = session['user']
+        try:
+            user_object = db.child("users").order_by_child("email").equal_to(user_email).get()
+            user_info = None
+            for user in user_object.each(): #figure out if there's an easier way to do this
+                user_info = user.val()
+            return user_info
 
-#user_info = get_users_info()
-#print(user_info) 
+        except Exception as e:
+            print(e)
+            return 'Failed to get user info'
+    else:
+        return None
 
+print user_info
 
 @app.route('/postItem', methods = ['GET', 'POST'])
 def postItem():
