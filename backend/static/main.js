@@ -13,8 +13,14 @@ function setUserName() {
     return xhttp
   }
 
-function contactUser(email, posting) {
-  const sender = "email@gmail.com"
-  const subject = "subject"
-  const body = "body"
+function contactUser() {
+  Email.send({
+    SecureToken : "e207fbbf-12c8-4708-8840-5dda9e9823dd",
+    To : 'awu2@swarthmore.edu',
+    From : "swarthmoremarketplace@gmail.com",
+    Subject : "This is the subject",
+    Body : "And this is the body"
+  }).then(
+    message => alert(message)
+  );
 }
