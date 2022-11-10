@@ -53,6 +53,7 @@ def login():
         try: #login
             user = auth.sign_in_with_email_and_password(email, password)
             session['user'] = email #assign user variable to session
+            # session['user_object'] = user
             print('log in', session)
             return redirect('/')
             #return f'Hi, {email}'
@@ -118,20 +119,9 @@ def get_user_info():
 @app.route('/postItem', methods = ['GET', 'POST'])
 def postItem():
     if request.method == 'POST': #if form submitted
-        try: #register
-            #user = auth.create_user_with_email_and_password(email, password)
-         
-            if ('user' in session):
-                user_email = session['user']
-                try:
-                    user_object = db.child("users").order_by_child("email").equal_to(user_email).get()
-                    user_info = None
-                    for user in user_object.each(): #figure out if there's an easier way to do this
-                        user_info = user.val()
-                except Exception as e:
-                    print(e)
-                    return 'Failed to get user info'
-            
+        user_info = get_user_info()
+        print(user_info)
+        try:                 
             item_name = request.form.get('item_name')
             item_price = request.form.get('item_price')
             item_condition = request.form.get('item_condition')
@@ -160,6 +150,7 @@ def postItem():
                 "item_description": item_description,
                 "file_path" : output_filepath
             }
+            #THE LINE BELOW IS BUGGED BUT I THINK THE ERROR IS SOMETHING DIFFERENT FOR NOW
             db.child("postings").push(posting_data, user['idToken'])
 
         except Exception as e:
