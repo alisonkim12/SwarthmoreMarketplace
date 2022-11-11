@@ -78,7 +78,7 @@ def register():
             }
             db.child("users").push(user_data, user['idToken'])
             print(user)
-            return f'Successfully registered account with {email}'
+            return redirect('/login')
         except Exception as e:
             print(e)
             return 'Register failed'
