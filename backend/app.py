@@ -78,7 +78,7 @@ def register():
             }
             db.child("users").push(user_data, user['idToken'])
             print(user)
-            return f'Successfully registered account with {email}'
+            return redirect('/login')
         except Exception as e:
             print(e)
             return 'Register failed'
@@ -114,8 +114,6 @@ def get_user_info():
     else:
         return None
 
-
-
 @app.route('/postItem', methods = ['GET', 'POST'])
 def postItem():
     if request.method == 'POST': #if form submitted
@@ -134,7 +132,8 @@ def postItem():
             product_id = seller_lname + seller_email + posting_time
             
             #storing images to the backend
-            f = request.files['item_photo']
+            upload_file()
+            '''f = request.files['item_photo']
             if f.filename != '':
                 file_extension = f.filename.split(".")[-1]
                 output_filepath = current_path + '/static/uploads/' + product_id + '.' + file_extension
@@ -152,6 +151,7 @@ def postItem():
             }
             #THE LINE BELOW IS BUGGED BUT I THINK THE ERROR IS SOMETHING DIFFERENT FOR NOW
             db.child("postings").push(posting_data, user['idToken'])
+            '''
 
         except Exception as e:
             print(e)
@@ -159,43 +159,10 @@ def postItem():
     return render_template('postItem.html')
 
 
-   
-   
+UPLOAD_FOLDER = '/path/to/the/uploads'
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
-    """def upload_file():
-        if request.method == 'POST':
-            
-                return render_template("next.html")
-            else:
-                return 'failure'
-        else:
-            return render_template("current.html")"""
-
-    """UPLOAD_FOLDER = '/path/to/the/uploads'
-    ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
-
-    app = Flask(__name__)
-    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER 
-
-    def upload_file():
-        if request.method == 'POST':
-            # check if the post request has the file part
-            if 'file' not in request.files:
-                flash('No file part')
-                return redirect(request.url)
-            file = request.files['file']
-            # if user does not select file, browser also
-            # submit a empty part without filename
-            if file.filename == '':
-                flash('No selected file')
-                return redirect(request.url)
-            if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))"""
-
-    #idk how photos uploaded from the frontend translates into the backend and how to store the data
-    
-
+<<<<<<< HEAD
 @app.route('/', methods = ['GET', 'POST'])
 def main_feed():
     if ('user' in session):
@@ -204,7 +171,25 @@ def main_feed():
         for items in all_postings.each(): 
             
 
+=======
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER 
+>>>>>>> 6ffa96c258352ac520f5b97a12e46c11e84356cf
 
+def upload_file():
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit a empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
 
 @app.route('/public/stylesheets/styles.css')
