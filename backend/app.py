@@ -23,7 +23,6 @@ auth = firebase.auth()
 db = firebase.database()
 current_path = os.getcwd()
 
-
 app.secret_key = 'secret'
 
 @app.before_request
@@ -113,8 +112,6 @@ def get_user_info():
             return 'Failed to get user info'
     else:
         return None
-
-
 
 @app.route('/postItem', methods = ['GET', 'POST'])
 def postItem():
