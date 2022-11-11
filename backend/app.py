@@ -116,8 +116,8 @@ def get_user_info():
 @app.route('/postItem', methods = ['GET', 'POST'])
 def postItem():
     if request.method == 'POST': #if form submitted
-       # user_info = get_user_info()
-       # print(user_info)
+        user_info = get_user_info()
+        # print(user_info)
         try:                 
             item_name = request.form.get('item_name')
             item_price = request.form.get('item_price')
@@ -132,7 +132,7 @@ def postItem():
             
             #storing images to the backend
             upload_file()
-            '''f = request.files['item_photo']
+            f = request.files['item_photo']
             if f.filename != '':
                 file_extension = f.filename.split(".")[-1]
                 output_filepath = current_path + '/static/uploads/' + product_id + '.' + file_extension
@@ -150,29 +150,22 @@ def postItem():
             }
             #THE LINE BELOW IS BUGGED BUT I THINK THE ERROR IS SOMETHING DIFFERENT FOR NOW
             db.child("postings").push(posting_data, user['idToken'])
-            '''
-
         except Exception as e:
             print(e)
             return 'Posting submission failed'
-    return render_template('postItem.html')
+    return render_template('postItem.html') #should go to page that has success message
 
 
 UPLOAD_FOLDER = '/path/to/the/uploads'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER 
 
-<<<<<<< HEAD
-@app.route('/', methods = ['GET', 'POST'])
+"""@app.route('/', methods = ['GET', 'POST'])
 def main_feed():
     if ('user' in session):
         #some sort of for loop: 
         all_postings = db.child("items").get()
-        for items in all_postings.each(): 
-            
-
-=======
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER 
->>>>>>> 6ffa96c258352ac520f5b97a12e46c11e84356cf
+        for items in all_postings.each():    """
 
 def upload_file():
     if request.method == 'POST':
