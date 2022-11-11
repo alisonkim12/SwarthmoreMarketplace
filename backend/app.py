@@ -23,7 +23,6 @@ auth = firebase.auth()
 db = firebase.database()
 current_path = os.getcwd()
 
-
 app.secret_key = 'secret'
 
 @app.before_request
