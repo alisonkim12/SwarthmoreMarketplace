@@ -119,8 +119,8 @@ def get_user_info():
 @app.route('/postItem', methods = ['GET', 'POST'])
 def postItem():
     if request.method == 'POST': #if form submitted
-        user_info = get_user_info()
-        print(user_info)
+       # user_info = get_user_info()
+       # print(user_info)
         try:                 
             item_name = request.form.get('item_name')
             item_price = request.form.get('item_price')
@@ -195,6 +195,14 @@ def postItem():
 
     #idk how photos uploaded from the frontend translates into the backend and how to store the data
     
+
+@app.route('/', methods = ['GET', 'POST'])
+def main_feed():
+    if ('user' in session):
+        #some sort of for loop: 
+        all_postings = db.child("items").get()
+        for items in all_postings.each(): 
+            
 
 
 
