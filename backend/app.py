@@ -114,8 +114,6 @@ def get_user_info():
     else:
         return None
 
-
-
 @app.route('/postItem', methods = ['GET', 'POST'])
 def postItem():
     if request.method == 'POST': #if form submitted
