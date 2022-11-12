@@ -32,7 +32,7 @@ function setUserInfo() {
   console.log("Request Sent");
   return xhttp
 }
-  
+
 function setPosts() {
   var xhttp = new XMLHttpRequest();
   xhttp.responseType = 'json'
@@ -47,7 +47,7 @@ function setPosts() {
         let card = document.createElement('div')
         card.className = 'card'
         let image = document.createElement('img')
-        image.src = "img_avatar.png"
+        image.src = item['image_url']
         image.alt = "Item_name"
         image.style = "width:50%"
         let container = document.createElement('div')
@@ -56,11 +56,13 @@ function setPosts() {
         name.innerHTML = item['name']
         let list = document.createElement('ul')
         let price = document.createElement('li')
-        price.innerHTML = item['price']
+        price.innerHTML = 'price: ' + item['price']
         let description = document.createElement('li')
         let interested = document.createElement('li')
+        let condition = document.createElement('li')
+        condition.innerHTML = item['condition']
         interested.innerHTML = "I'm interested"
-        description.innerHTML = item['description']
+        description.innerHTML = 'description: ' + item['description']
         list.appendChild(price)
         list.appendChild(description)
         list.appendChild(interested)

@@ -21,6 +21,7 @@ config = {
 firebase = pyrebase.initialize_app(config)
 auth = firebase.auth()
 db = firebase.database()
+storage = firebase.storage()
 current_path = os.getcwd()
 
 app.secret_key = 'secret'
@@ -126,30 +127,31 @@ def postItem():
             seller_fname = user_info.get('firstname')
             seller_lname = user_info.get('lastname')
             seller_email = user_info.get('email')
+            image = request.files['item_photo']
+            print('image', image)
             posting_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
         
-            product_id = seller_lname + seller_email + posting_time
+            product_id = seller_lname + item_name + posting_time
             
             #storing images to the backend
-            upload_file()
-            f = request.files['item_photo']
-            if f.filename != '':
-                file_extension = f.filename.split(".")[-1]
-                output_filepath = current_path + '/static/uploads/' + product_id + '.' + file_extension
-                f.save(output_filepath) #saves file to uploaded file
-
+            storage.child(f'images/posts/{product_id}').put(image)
+            image_url = storage.child(f'images/posts/{product_id}').get_url(None)
             posting_data = {
                 "firstname": user_info.get('firstname'),
                 "lastname": user_info.get('lastname'),
                 "email": user_info.get('email'),
-                "item_name": item_name,
-                "item_price": item_price, 
-                "item_condition": item_condition,
-                "item_description": item_description,
-                "file_path" : output_filepath
+                "name": item_name,
+                "price": item_price, 
+                "condition": item_condition,
+                "description": item_description,
+                "seller_email": seller_email,
+                "seller_lname": seller_lname,
+                "posting_time": posting_time,
+                "product_id": product_id,
+                "image_url": image_url
             }
-            #THE LINE BELOW IS BUGGED BUT I THINK THE ERROR IS SOMETHING DIFFERENT FOR NOW
-            db.child("postings").push(posting_data, user['idToken'])
+            db.child("postings").push(posting_data)
+            return redirect('/')
         except Exception as e:
             print(e)
             return 'Posting submission failed'
@@ -163,28 +165,32 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 @app.route('/api/posts')
 def get_main_feed():
     if ('user' in session):
-        all_postings = db.child("items").get().val()
+        all_postings = db.child("postings").get().val()
         postings = list(all_postings.values())
         postings.reverse()
         return postings
     else:
         return None
+@app.route('/api/posts/<id>')
+def get_image_link(id):
+    return storage.child(f"images/posts/{id}").get_url()
 
-def upload_file():
-    if request.method == 'POST':
-        # check if the post request has the file part
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
-        file = request.files['file']
-        # if user does not select file, browser also
-        # submit a empty part without filename
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+# @app.route('/api/file')
+# def upload_file():
+#     if request.method == 'POST':
+#         # check if the post request has the file part
+#         if 'file' not in request.files:
+#             flash('No file part')
+#             return redirect(request.url)
+#         file = request.files['file']
+#         # if user does not select file, browser also
+#         # submit a empty part without filename
+#         if file.filename == '':
+#             flash('No selected file')
+#             return redirect(request.url)
+#         if file and allowed_file(file.filename):
+#             filename = secure_filename(file.filename)
+#             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
 
 @app.route('/public/stylesheets/styles.css')

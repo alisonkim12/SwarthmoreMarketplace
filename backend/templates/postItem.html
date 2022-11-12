@@ -36,7 +36,7 @@
   </center>
 
   <div class="container">
-    <form action="/postItem" method="post" id="postitem">
+    <form enctype="multipart/form-data" action="/postItem" method="post" id="postitem">
       <div class="row">
         
         <div class="col-25">
@@ -97,7 +97,7 @@
 
         <div class="col-75">
           <span>
-            <input type="file" id="item_photo" name="photo" accept="image/png, image/jpeg">
+            <input type="file" id="item_photo" name="item_photo" accept="image/png, image/jpeg">
           </span>
         </div>
 
