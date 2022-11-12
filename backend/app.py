@@ -160,12 +160,15 @@ UPLOAD_FOLDER = '/path/to/the/uploads'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER 
 
-"""@app.route('/', methods = ['GET', 'POST'])
-def main_feed():
+@app.route('/api/posts')
+def get_main_feed():
     if ('user' in session):
-        #some sort of for loop: 
-        all_postings = db.child("items").get()
-        for items in all_postings.each():    """
+        all_postings = db.child("items").get().val()
+        postings = list(all_postings.values())
+        postings.reverse()
+        return postings
+    else:
+        return None
 
 def upload_file():
     if request.method == 'POST':
