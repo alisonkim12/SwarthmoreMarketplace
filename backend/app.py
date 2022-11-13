@@ -57,7 +57,7 @@ def login():
             return redirect('/')
         except Exception as e: #login does not go through  
             #print(e)
-            return 'Failed to Login'
+            return render_template('login.html')
     return render_template('login.html')
 
 @app.route('/register', methods = ['GET', 'POST'])
