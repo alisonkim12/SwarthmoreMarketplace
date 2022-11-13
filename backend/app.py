@@ -1,4 +1,4 @@
-from flask import Flask, flash, session, render_template, request, redirect, send_from_directory, url_for
+from flask import Flask, flash, abort, session, render_template, request, redirect, send_from_directory, url_for
 from werkzeug.utils import secure_filename
 import pyrebase
 import os
@@ -52,11 +52,9 @@ def login():
         password = request.form.get('password')
         try: #login
             user = auth.sign_in_with_email_and_password(email, password)
-            session['user'] = email #assign user variable to session
-            # session['user_object'] = user
+            session['user'] = email #assign email to session
             print('log in', session)
             return redirect('/')
-            #return f'Hi, {email}'
         except Exception as e: #login does not go through  
             #print(e)
             return 'Failed to Login'
@@ -118,7 +116,6 @@ def get_user_info():
 def postItem():
     if request.method == 'POST': #if form submitted
         user_info = get_user_info()
-        # print(user_info)
         try:                 
             item_name = request.form.get('item_name')
             item_price = request.form.get('item_price')
@@ -144,8 +141,6 @@ def postItem():
                 "price": item_price, 
                 "condition": item_condition,
                 "description": item_description,
-                "seller_email": seller_email,
-                "seller_lname": seller_lname,
                 "posting_time": posting_time,
                 "product_id": product_id,
                 "image_url": image_url
@@ -157,11 +152,6 @@ def postItem():
             return 'Posting submission failed'
     return render_template('postItem.html') #should go to page that has success message
 
-
-UPLOAD_FOLDER = '/path/to/the/uploads'
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER 
-
 @app.route('/api/posts')
 def get_main_feed():
     if ('user' in session):
@@ -171,43 +161,34 @@ def get_main_feed():
         return postings
     else:
         return None
-@app.route('/api/posts/<id>')
-def get_image_link(id):
-    return storage.child(f"images/posts/{id}").get_url()
 
-# @app.route('/api/file')
-# def upload_file():
-#     if request.method == 'POST':
-#         # check if the post request has the file part
-#         if 'file' not in request.files:
-#             flash('No file part')
-#             return redirect(request.url)
-#         file = request.files['file']
-#         # if user does not select file, browser also
-#         # submit a empty part without filename
-#         if file.filename == '':
-#             flash('No selected file')
-#             return redirect(request.url)
-#         if file and allowed_file(file.filename):
-#             filename = secure_filename(file.filename)
-#             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+@app.route('/api/user/posts')
+def get_user_posts():
+    if ('user' in session):
+        user_email = session['user']
+        user_postings = db.child("postings").order_by_child("email").equal_to(user_email).get().val()
+        postings = list(user_postings.values())
+        postings.reverse()
+        return postings
+    else:
+        return None
 
+@app.route('/api/posts/<id>', methods = ['DELETE'])
+def remove_post(id):
+    user_email = session['user']
+    user_post = db.child("postings").order_by_child("product_id").equal_to(id).get()
+    for pair in user_post.each():
+        key = pair.key()
+        post = pair.val()
+    if post["email"] != user_email:
+        abort(404)
+    else:
+        db.child("postings").child(key).remove()
+        return render_template('profile.html')
 
 @app.route('/public/stylesheets/styles.css')
 def get_styling():
     return send_from_directory('static', 'styles.css')
-
-#extra methods
-
-#user = auth.create_user_with_email_and_password(email, password)
-#print(user)
-
-#user = auth.sign_in_with_email_and_password(email, password)
-
-#info = aut.get_account_info(user['idToken'])
-#print(info)
-#auth.send_email_verification(user['idToken'])
-#auth.send_password_reset_email(email)
 
 if __name__ == '__main__':
     app.run() # run locally

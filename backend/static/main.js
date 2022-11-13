@@ -40,7 +40,6 @@ function setPosts() {
     if (this.readyState == 4 && this.status == 200) {
       console.log("Response Received: " + this.response);
       let cards = document.getElementById('cards')
-      console.log(this.response)
       this.response.forEach((item) => {
         let column = document.createElement('div')
         column.className = 'column'
@@ -55,17 +54,19 @@ function setPosts() {
         let name = document.createElement('h3')
         name.innerHTML = item['name']
         let list = document.createElement('ul')
+        list.style = 'list-style: none'
         let price = document.createElement('li')
-        price.innerHTML = 'price: ' + item['price']
+        price.innerHTML = 'Price: ' + item['price']
         let description = document.createElement('li')
-        let interested = document.createElement('li')
+        let email = document.createElement('li')
         let condition = document.createElement('li')
-        condition.innerHTML = item['condition']
-        interested.innerHTML = "I'm interested"
-        description.innerHTML = 'description: ' + item['description']
+        condition.innerHTML = "Condition: " + item['condition']
+        email.innerHTML = "Contact the seller at " + item['email']
+        description.innerHTML = 'Description: ' + item['description']
         list.appendChild(price)
+        list.appendChild(condition)
         list.appendChild(description)
-        list.appendChild(interested)
+        list.appendChild(email)
         container.appendChild(name)
         container.appendChild(list)
         card.appendChild(image)
@@ -80,14 +81,71 @@ function setPosts() {
   console.log("Request Sent");
   return xhttp
 }
-function contactUser() {
-  Email.send({
-    SecureToken : "e207fbbf-12c8-4708-8840-5dda9e9823dd",
-    To : 'awu2@swarthmore.edu',
-    From : "swarthmoremarketplace@gmail.com",
-    Subject : "This is the subject",
-    Body : "And this is the body"
-  }).then(
-    message => alert(message)
-  );
+
+function setUserPosts() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.responseType = 'json'
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log("Response Received: " + this.response);
+      let postings = document.getElementById('postings')
+      this.response.forEach((item) => {
+        let column = document.createElement('div')
+        column.id = item['product_id']
+        column.className = 'column'
+        let card = document.createElement('div')
+        card.className = 'card'
+        let image = document.createElement('img')
+        image.src = item['image_url']
+        image.alt = "Item_name"
+        image.style = "width:50%"
+        let container = document.createElement('div')
+        container.className = 'container'
+        let name = document.createElement('h3')
+        name.innerHTML = item['name']
+        let list = document.createElement('ul')
+        list.style = 'list-style: none'
+        let price = document.createElement('li')
+        price.innerHTML = 'Price: ' + item['price']
+        let description = document.createElement('li')
+        let condition = document.createElement('li')
+        let deleteButton = document.createElement('button')
+        deleteButton.innerHTML = 'Delete Post'
+        deleteButton.className = 'deleteButton'
+        deleteButton.onclick = () => deleteUserPost(item['product_id'])
+        condition.innerHTML = "Condition: " + item['condition']
+        description.innerHTML = 'Description: ' + item['description']
+        list.appendChild(price)
+        list.appendChild(description)
+        list.appendChild(condition)
+        list.appendChild(deleteButton)
+        container.appendChild(name)
+        container.appendChild(list)
+        card.appendChild(image)
+        card.appendChild(container)
+        column.appendChild(card)
+        postings.appendChild(column)
+      })
+    }
+  };
+  xhttp.open("GET", "/api/user/posts", true);
+  xhttp.send();
+  console.log("Request Sent");
+  return xhttp
+}
+
+function deleteUserPost(productId) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.responseType = 'json'
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log("Successfully deleted")
+      let post = document.getElementById(productId)
+      post.style = 'display: none';
+    }
+  };
+  xhttp.open("DELETE", `/api/posts/${productId}`, true);
+  xhttp.send();
+  console.log("Request Sent");
+  return xhttp
 }
