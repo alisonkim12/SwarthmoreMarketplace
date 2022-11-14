@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+
+  <head>
+    <link rel="stylesheet" href="/public/stylesheets/styles.css">
+    <title>Swarthmore MarketPlace Post Item Page</title>
+    <script src="/static/main.js"></script>
+    <script>
+        setUserName()
+    </script>
+  </head>
+  
+<!--Navigation bar-->
+<body>
+  <nav>
+      <div class="heading">
+          <h4><a style="text-decoration: none;color: black;" href="/"> Swarthmore MarketPlace</a></h4>
+          <!--Later this might be an image idk-->
+      </div>
+      <ul class="nav-links">
+        <li><a href="/">Main Feed</a></li>
+        <li><a class="active" href="/postItem">Create Post</a></li>
+        <li><a href="/profile">My Account</a></li>
+        <li class="dropdown">
+          <a href="javascript:void(0)" class="dropbtn" id="hello">Hello!</a>
+          <div class="dropdown-content">
+            <a href="/logout">Log Out</a>
+          </div>
+    </ul>
+  </nav>
+  
+  <center>
+    <!-- Heading -->
+    <h1>Post Item</h1>
+  </center>
+
+  <div class="container">
+    <div class="img">
+        <img> 
+    </div>
+    
+      <div class="row">
+        
+        <div class="col-25">
+          <label for ="item_name">Item Name:</label>
+        </div>
+
+        <div class="col-75">
+            <p>The item name goes here</p>
+            <small></small>
+        </div>
+        
+      </div>
+
+      <div class="row">
+        
+        <div class="col-25">
+          <label for ="contact_info">Contact Info:</label>
+        </div>
+
+        <div class="col-75">
+            <p>The contact info goes here</p>
+            <small></small>
+        </div>
+        
+      </div>
+
+      <div class="row">
+
+        <div class="col-25">
+          <label for="item_price">Item Price:</label>
+        </div>
+
+        <div class="col-75">
+            <p>The item price goes here</p>
+          <small></small>
+        </div>
+
+      </div>
+
+      <div class="row">
+        
+        <div class="col-25">
+          <label for="item_condition">Conditon of item:</label> <!--should this be a select?-->
+        </div>
+
+        <div class="col-75">
+            <p>The item condition goes here</p>
+          <small></small>
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-25">
+          <label for="item_description">Item Description:</label>
+        </div>
+
+        <div class="col-75">
+            <p>The item description goes here</p>
+          <small></small>
+        </div>
+
+      </div>
+  </div>
+</body>
+
+</html>
+
+<!-- Description -->
