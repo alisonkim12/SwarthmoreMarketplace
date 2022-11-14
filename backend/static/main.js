@@ -58,6 +58,7 @@ function setPosts() {
         let price = document.createElement('li')
         price.innerHTML = 'Price: ' + item['price']
         let description = document.createElement('li')
+        description.className = 'description'
         let email = document.createElement('li')
         let condition = document.createElement('li')
         condition.innerHTML = "Condition: " + item['condition']

@@ -226,6 +226,13 @@ a {
   background-color: #f1f1f1;
   position: relative;
   margin-bottom: 30px;
+  height: 350px;
+  width: 300px;
+  /* display:inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 30ch; */
 }
 
 .card:hover {
@@ -242,4 +249,18 @@ a {
   color: white;
   font-size: 15px;
   padding: 4px;
+}
+
+.description {
+  display:inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 30ch;
+}
+
+img {
+  /* isplay: block; */
+  height: 180px;
+  width: 180px;
 }
