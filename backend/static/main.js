@@ -164,7 +164,7 @@ function deleteUserPost(productId) {
   return xhttp
 }
 
-function setUserPosts(productId) {
+function getUserPost(productId) {
   var xhttp = new XMLHttpRequest();
   xhttp.responseType = 'json'
   xhttp.onreadystatechange = function() {
