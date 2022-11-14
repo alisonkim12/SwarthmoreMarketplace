@@ -227,7 +227,7 @@ a {
   position: relative;
   margin-bottom: 30px;
   height: 350px;
-  width: 300px;
+  width: 400px;
   /* display:inline-block;
   white-space: nowrap;
   overflow: hidden;
@@ -252,11 +252,25 @@ a {
 }
 
 .description {
-  display:inline-block;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 30ch;
+  max-width: 45ch;
+}
+
+.condition {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 45ch;
+}
+
+.item_name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 35ch;
+  
 }
 
 img {
