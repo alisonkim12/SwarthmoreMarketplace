@@ -161,6 +161,22 @@ def get_main_feed():
         return postings
     else:
         return None
+@app.route('/api/posts/<id>')
+def get_post_info(id):
+    if ('user' in session):
+        user_email = session['user']
+        try:
+            post_object = db.child("postings").order_by_child("product_id").equal_to(id).get()
+            post_info = None
+            for post in post_object.each(): #figure out if there's an easier way to do this
+                post_info = post.val()
+            return post_info
+
+        except Exception as e:
+            print(e)
+            return 'Failed to get post info'
+    else:
+        return None
 
 @app.route('/api/user/posts')
 def get_user_posts():

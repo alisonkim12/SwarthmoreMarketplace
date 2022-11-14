@@ -163,3 +163,17 @@ function deleteUserPost(productId) {
   console.log("Request Sent");
   return xhttp
 }
+
+function setUserPosts(productId) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.responseType = 'json'
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      let postInfo = this.response
+    }
+  };
+  xhttp.open("GET", `/api/posts/${productId}`, true);
+  xhttp.send();
+  console.log("Request Sent");
+  return xhttp
+}
