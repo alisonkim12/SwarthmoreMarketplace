@@ -161,22 +161,6 @@ def get_main_feed():
         return postings
     else:
         return None
-# @app.route('/api/posts/<id>')
-# def get_post_info(id):
-#     if ('user' in session):
-#         user_email = session['user']
-#         try:
-#             post_object = db.child("postings").order_by_child("product_id").equal_to(id).get()
-#             post_info = None
-#             for post in post_object.each(): #figure out if there's an easier way to do this
-#                 post_info = post.val()
-#             return post_info
-
-#         except Exception as e:
-#             print(e)
-#             return 'Failed to get post info'
-#     else:
-#         return None
 
 @app.route('/api/user/posts')
 def get_user_posts():
@@ -189,34 +173,41 @@ def get_user_posts():
     else:
         return None
 
-@app.route('/api/posts/<id>', methods = ['DELETE', 'GET'])
-def remove_post(id):
-    if request.method == 'DELETE':
-        user_email = session['user']
-        user_post = db.child("postings").order_by_child("product_id").equal_to(id).get()
-        for pair in user_post.each():
-            key = pair.key()
-            post = pair.val()
-        if post["email"] != user_email:
-            abort(404)
-        else:
-            db.child("postings").child(key).remove()
-            return render_template('profile.html')
-    else:
-        if ('user' in session):
-            user_email = session['user']
-            try:
-                post_object = db.child("postings").order_by_child("product_id").equal_to(id).get()
-                post_info = None
-                for post in post_object.each(): #figure out if there's an easier way to do this
-                    post_info = post.val()
-                return post_info
+@app.route('/posts/<id>')
+def get_post(id):
+    return render_template("detailed_items.html")
 
-            except Exception as e:
-                print(e)
-                return 'Failed to get post info'
-        else:
-            return None
+@app.route('/api/posts/<id>', methods = ['GET'])
+def get_post_info(id):
+    if ('user' in session):
+        try:
+            post_object = db.child("postings").order_by_child("product_id").equal_to(id).get()
+            post_info = None
+            print(post_object.each())
+            for post in post_object.each(): #figure out if there's an easier way to do this
+                post_info = post.val()
+                print(post_info)
+            return post_info
+
+        except Exception as e:
+            print(e)
+            return 'Failed to get post info'
+    else:
+        return render_template('login.html')
+
+@app.route('/api/posts/<id>', methods = ['DELETE'])
+def remove_post(id):
+    user_email = session['user']
+    user_post = db.child("postings").order_by_child("product_id").equal_to(id).get()
+    for pair in user_post.each():
+        key = pair.key()
+        post = pair.val()
+    if post["email"] != user_email:
+        abort(404)
+    else:
+        db.child("postings").child(key).remove()
+        return render_template('profile.html')
+
 
 @app.route('/public/stylesheets/styles.css')
 def get_styling():

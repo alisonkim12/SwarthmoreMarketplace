@@ -87,6 +87,7 @@ function setPosts() {
         card.appendChild(container)
         column.appendChild(card)
         cards.appendChild(column)
+        card.onclick = () => location.href = `/posts/${item['product_id']}`
       })
     }
   };
@@ -164,12 +165,27 @@ function deleteUserPost(productId) {
   return xhttp
 }
 
-function getUserPost(productId) {
+function getPost() {
+  console.log(window.location.href)
+  let url = window.location.href
+  let productId = url.split('/posts/')[1]
   var xhttp = new XMLHttpRequest();
   xhttp.responseType = 'json'
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       let postInfo = this.response
+      let name = document.getElementById('item_name')
+      name.innerHTML = postInfo['name']
+      let price = document.getElementById('item_price')
+      price.innerHTML = postInfo['price']
+      let condition = document.getElementById('item_condition')
+      condition.innerHTML = postInfo['condition']
+      let email = document.getElementById('contact_info')
+      email.innerHTML = postInfo['email']
+      let image = document.getElementById('item_image')
+      image.src = postInfo['image_url']
+      let description = document.getElementById('item_description')
+      description.innerHTML = postInfo['description']
     }
   };
   xhttp.open("GET", `/api/posts/${productId}`, true);
