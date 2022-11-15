@@ -118,12 +118,15 @@ function setUserPosts() {
         container.className = 'container'
         let name = document.createElement('h3')
         name.innerHTML = item['name']
+        name.className = 'item_name'
         let list = document.createElement('ul')
         list.style = 'list-style: none'
         let price = document.createElement('li')
         price.innerHTML = 'Price: ' + item['price']
         let description = document.createElement('li')
+        description.className = 'description'
         let condition = document.createElement('li')
+        condition.className = 'condition'
         let deleteButton = document.createElement('button')
         deleteButton.innerHTML = 'Delete Post'
         deleteButton.className = 'deleteButton'
@@ -138,6 +141,7 @@ function setUserPosts() {
         container.appendChild(list)
         card.appendChild(image)
         card.appendChild(container)
+        card.onclick = () => location.href = `/posts/${item['product_id']}`
         column.appendChild(card)
         postings.appendChild(column)
       })
