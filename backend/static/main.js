@@ -51,7 +51,7 @@ function setPosts() {
         let image = document.createElement('img')
         image.src = item['image_url']
         image.alt = "Item_name"
-        image.style = "width:50%"
+        image.className = 'block-img'
 
         let container = document.createElement('div')
         container.className = 'container'
@@ -113,7 +113,7 @@ function setUserPosts() {
         let image = document.createElement('img')
         image.src = item['image_url']
         image.alt = "Item_name"
-        image.style = "width:50%"
+        image.className = 'block-img'
         let container = document.createElement('div')
         container.className = 'container'
         let name = document.createElement('h3')
@@ -182,7 +182,7 @@ function getPost() {
       condition.innerHTML = postInfo['condition']
       let email = document.getElementById('contact_info')
       email.innerHTML = postInfo['email']
-      let image = document.getElementById('item_image')
+      let image = document.getElementById('item-img')
       image.src = postInfo['image_url']
       let description = document.getElementById('item_description')
       description.innerHTML = postInfo['description']

@@ -273,8 +273,14 @@ a {
   
 }
 
-img {
+.block-img {
   /* isplay: block; */
   height: 180px;
   width: 180px;
+}
+
+#item-img {
+  max-height: 500px;
+  height: auto;
+  width: auto;
 }
