@@ -52,6 +52,9 @@ def login():
         password = request.form.get('password')
         try: #login
             user = auth.sign_in_with_email_and_password(email, password)
+            user_info = auth.get_account_info(user['idToken'])
+            if not user_info['users'][0]['emailVerified']:
+                raise Exception("Email is not verified")
             session['user'] = email #assign email to session
             print('log in', session)
             return redirect('/')
@@ -69,6 +72,7 @@ def register():
     if request.method == 'POST': #if form submitted
         try: #register
             user = auth.create_user_with_email_and_password(email, password)
+            auth.send_email_verification(user['idToken'])
             user_data = {
                 "firstname": first_name,
                 "lastname": last_name,
