@@ -76,6 +76,7 @@ def register():
             }
             db.child("users").push(user_data, user['idToken'])
             print(user)
+
             return redirect('/login')
         except Exception as e:
             print(e)
