@@ -25,6 +25,7 @@ storage = firebase.storage()
 current_path = os.getcwd()
 
 app.secret_key = 'secret'
+domains_allowed = ['swarthmore.edu']
 
 @app.before_request
 def before_request():
@@ -70,21 +71,24 @@ def register():
     first_name = request.form.get('fname')
     last_name = request.form.get('lname')
     if request.method == 'POST': #if form submitted
-        try: #register
-            user = auth.create_user_with_email_and_password(email, password)
-            auth.send_email_verification(user['idToken'])
-            user_data = {
-                "firstname": first_name,
-                "lastname": last_name,
-                "email": email
-            }
-            db.child("users").push(user_data, user['idToken'])
-            print(user)
-
-            return redirect('/login')
-        except Exception as e:
-            print(e)
-            return 'Register failed'
+        email_domain = email.split('@')[-1]
+        if email_domain in domains_allowed: 
+            try: #register
+                user = auth.create_user_with_email_and_password(email, password)
+                auth.send_email_verification(user['idToken'])
+                user_data = {
+                    "firstname": first_name,
+                    "lastname": last_name,
+                    "email": email
+                }
+                db.child("users").push(user_data, user['idToken'])
+                print(user)
+                return redirect('/login')
+            except Exception as e:
+                print(e)
+                return 'Register failed'
+        else: 
+            return 'Register failed, enter email address with swarthmore.edu domain'
     return render_template('register.html')
 
 @app.route('/logout')
