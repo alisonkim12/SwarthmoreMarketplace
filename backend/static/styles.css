@@ -36,7 +36,7 @@ nav {
   justify-content: space-between;
   align-items: center;
   min-height: 8vh;
-  background-color:  #b43135;/*nav color*/
+  background-color:  #b93b3f;/*nav color*/
 
 }
 .nav-links {
@@ -69,11 +69,11 @@ nav {
 }
 
 .nav-links a:hover:not(.active), .dropdown:hover .dropbtn {
-  background-color: #63B665;
+  background-color: #c59d9d;
 }
 
 .nav-links li a.active {
-  background-color: #4caf50;
+  background-color: #c59d9d;
 }
 
 .nav-links li.dropdown {
