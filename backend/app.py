@@ -25,7 +25,7 @@ storage = firebase.storage()
 current_path = os.getcwd()
 
 app.secret_key = 'secret'
-domains_allowed = ['swarthmore.edu']
+domains_allowed = ['swarthmore.edu','cs.swarthmore.edu']
 
 @app.before_request
 def before_request():
@@ -223,4 +223,4 @@ def get_styling():
     return send_from_directory('static', 'styles.css')
 
 if __name__ == '__main__':
-    app.run() # run locally
+    app.run(host = "0.0.0.0") # run locally
