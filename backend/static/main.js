@@ -64,7 +64,7 @@ function setPosts() {
         list.style = 'list-style: none'
 
         let price = document.createElement('li')
-        price.innerHTML = 'Price: ' + item['price']
+        price.innerHTML = 'Price: $' + item['price']
         
         let description = document.createElement('li')
         description.className = 'description'
@@ -122,7 +122,7 @@ function setUserPosts() {
         let list = document.createElement('ul')
         list.style = 'list-style: none'
         let price = document.createElement('li')
-        price.innerHTML = 'Price: ' + item['price']
+        price.innerHTML = 'Price: $' + item['price']
         let description = document.createElement('li')
         description.className = 'description'
         let condition = document.createElement('li')
@@ -181,7 +181,7 @@ function getPost() {
       let name = document.getElementById('item_name')
       name.innerHTML = postInfo['name']
       let price = document.getElementById('item_price')
-      price.innerHTML = postInfo['price']
+      price.innerHTML = '$' + postInfo['price']
       let condition = document.getElementById('item_condition')
       condition.innerHTML = postInfo['condition']
       let email = document.getElementById('contact_info')
