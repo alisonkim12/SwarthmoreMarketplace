@@ -130,7 +130,10 @@ function setUserPosts() {
         let deleteButton = document.createElement('button')
         deleteButton.innerHTML = 'Delete Post'
         deleteButton.className = 'deleteButton'
-        deleteButton.onclick = () => deleteUserPost(item['product_id'])
+        deleteButton.onclick = (e) => {
+          deleteUserPost(item['product_id'])
+          e.stopPropagation()
+        }
         condition.innerHTML = "Condition: " + item['condition']
         description.innerHTML = 'Description: ' + item['description']
         list.appendChild(price)
