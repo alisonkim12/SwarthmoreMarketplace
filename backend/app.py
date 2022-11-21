@@ -40,10 +40,6 @@ def before_request():
     else:
         return redirect('/login')
 
-@app.route("/")
-def get_main_page():
-    return render_template('main.html')
-
 @app.route('/login', methods = ['POST', 'GET'])
 def login(): 
     if ('user' in session):
@@ -96,6 +92,10 @@ def logout():
     session.pop('user')
     return redirect('/login')
 
+@app.route("/")
+def get_main_page():
+    return render_template('main.html')
+
 @app.route('/navbar')
 def navbar():
     return render_template('navbar.html')
@@ -104,22 +104,9 @@ def navbar():
 def profile():
     return render_template('profile.html')
 
-@app.route('/api/user')
-def get_user_info():
-    if ('user' in session):
-        user_email = session['user']
-        try:
-            user_object = db.child("users").order_by_child("email").equal_to(user_email).get()
-            user_info = None
-            for user in user_object.each(): #figure out if there's an easier way to do this
-                user_info = user.val()
-            return user_info
-
-        except Exception as e:
-            print(e)
-            return 'Failed to get user info'
-    else:
-        return None
+@app.route('/posts/<id>')
+def get_post(id):
+    return render_template("detailed_items.html")
 
 @app.route('/postItem', methods = ['GET', 'POST'])
 def postItem():
@@ -161,6 +148,23 @@ def postItem():
             return 'Posting submission failed'
     return render_template('postItem.html') #should go to page that has success message
 
+@app.route('/api/user')
+def get_user_info():
+    if ('user' in session):
+        user_email = session['user']
+        try:
+            user_object = db.child("users").order_by_child("email").equal_to(user_email).get()
+            user_info = None
+            for user in user_object.each(): #figure out if there's an easier way to do this
+                user_info = user.val()
+            return user_info
+
+        except Exception as e:
+            print(e)
+            return 'Failed to get user info'
+    else:
+        return None
+
 @app.route('/api/posts')
 def get_main_feed():
     if ('user' in session):
@@ -181,10 +185,6 @@ def get_user_posts():
         return postings
     else:
         return None
-
-@app.route('/posts/<id>')
-def get_post(id):
-    return render_template("detailed_items.html")
 
 @app.route('/api/posts/<id>', methods = ['GET'])
 def get_post_info(id):
