@@ -22,7 +22,7 @@
 
 .ul {
   list-style-type: none;
-  position: fixed; /*This causes the items of the navbar to clump up for some reason, I had to do .ul instead of ul*/
+  position: fixed; 
   top: 0;
   width: 100%;
   margin: 0;
@@ -43,7 +43,7 @@ nav {
   overflow: auto;
   display: flex;
   justify-content: space-around;
-  width: 50%; /*This is making the last item not hug the end of the page from testing it seems*/
+  width: 50%; 
 }
 
 .nav-links li {
@@ -57,14 +57,14 @@ nav {
 }
 
 .nav-links a, .dropbtn{
-  display: block; /*This makes items be block */
+  display: block;
   color: black;
   text-decoration: none;
   text-align: center;
   letter-spacing: 3px;
   font-weight: bold;
   font-size: 14px;
-  padding: 30px 16px; /* From the page I used to create, maybe change later */
+  padding: 30px 16px;
 }
 
 .nav-links a:hover:not(.active), .dropdown:hover .dropbtn {
